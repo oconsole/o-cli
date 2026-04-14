@@ -6,11 +6,11 @@
   "bundle": {
     "createUpdaterArtifacts": false,
     "icon": [
-      "icons/prod/32x32.png",
-      "icons/prod/128x128.png",
-      "icons/prod/128x128@2x.png",
-      "icons/prod/icon.icns",
-      "icons/prod/icon.ico"
+      "icons/o-cli/32x32.png",
+      "icons/o-cli/128x128.png",
+      "icons/o-cli/128x128@2x.png",
+      "icons/o-cli/icon.icns",
+      "icons/o-cli/icon.ico"
     ],
     "longDescription": "O-CLI — an AI terminal agent for Odoo. Diagnose, audit, and operate Odoo instances in plain English from a native desktop window.",
     "shortDescription": "AI terminal agent for Odoo, in a native desktop window.",
