@@ -11,6 +11,7 @@ OdooCLI is a fork of [opencode](https://github.com/anomalyco/opencode) preconfig
 | **Odoo MCP server** ([`vendor/odoo-mcp-server`](https://github.com/oconsole/odoo-mcp-server)) | 18 native Odoo RPC tools the model calls directly: `odoo_search_read`, `odoo_create`, `odoo_update`, `odoo_doctor`, `odoo_execute`, `odoo_get_fields`, `odoo_get_view`, `odoo_export`, and more. Pre-wired in [`opencode.json`](opencode.json) — no plugin to install. |
 | **Odoo skill pack** ([`vendor/odoo-skills`](https://github.com/oconsole/odoo-skills)) | 7 markdown skills auto-discovered via `skills.paths`: `odoo-system-inspect`, `odoo-accounting-inspect`, `odoo-stock-inspect`, `odoo-mrp-inspect`, `odoo-model-inspect`, `odoo-model-customize`, `odoo-model-customize-demo`. The model loads them on demand when the user's question matches their WHEN/DO-NOT-USE conditions. |
 | **`odoo` default agent** ([`.opencode/agent/odoo.md`](.opencode/agent/odoo.md)) | Primary agent with an Odoo-tailored system prompt: read-before-write defaults, mutation gating, version-aware field handling, record-ID citations. Set as `default_agent` so `odoocli` drops you into it. |
+| **Connection plugin** ([`plugins/odoo-env.ts`](plugins/odoo-env.ts)) | Startup plugin that loads `~/.odoocli/odoo.env` into the environment before any Odoo tool runs. On first launch it creates the file as a template and prints a banner telling you what to fill in — so you never get a silent "connection refused" mid-conversation. |
 
 The point: you run OdooCLI, point it at your Odoo instance, and it already knows how to talk to it.
 
@@ -26,15 +27,18 @@ bun install
 
 > If you already cloned without `--recurse-submodules`, run `git submodule update --init --recursive` to fetch `vendor/odoo-mcp-server` and `vendor/odoo-skills`.
 
-Set your Odoo connection in your shell or `~/.odoocli/.env`:
+First launch creates `~/.odoocli/odoo.env` as a template and prints a banner asking you to fill it in:
 
 ```bash
-export ODOO_URL=https://your-instance.odoo.com
-export ODOO_DB=your-database
-export ODOO_USER=admin
-export ODOO_PASSWORD=your-password      # Odoo 17–18
-# export ODOO_API_KEY=...                # preferred on Odoo 19+
+# ~/.odoocli/odoo.env  (auto-created on first run)
+ODOO_URL=https://your-instance.odoo.com
+ODOO_DB=your-database-name
+ODOO_USER=admin
+ODOO_PASSWORD=your-password   # Odoo 17–18
+# ODOO_API_KEY=...             # preferred on Odoo 19+
 ```
+
+The startup plugin (`plugins/odoo-env.ts`) reads this file before any Odoo tool runs. Anything you `export` in your shell still wins — useful for CI or transient test connections.
 
 Then start it:
 

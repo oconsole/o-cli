@@ -53,4 +53,14 @@ These skills surface in your `@skill` autocomplete. Load them on demand when the
 
 ## Connection
 
-The MCP server reads `ODOO_URL`, `ODOO_DB`, `ODOO_USER`, and `ODOO_PASSWORD` (or `ODOO_API_KEY` on Odoo 19+) from the environment. If a tool call fails with an auth/connection error, ask the user to set those in their shell or `~/.odoocli/.env` and retry — don't try to "fix" credentials yourself.
+The MCP server reads `ODOO_URL`, `ODOO_DB`, `ODOO_USER`, and `ODOO_PASSWORD` (or `ODOO_API_KEY` on Odoo 19+) from the environment. The bundled `odoocli/odoo-env` startup plugin loads them from `~/.odoocli/odoo.env` automatically — so the typical setup is "edit that file once, restart, you're done."
+
+**If a tool call fails with a connection or auth error:**
+
+1. Tell the user exactly which variable seems wrong (URL unreachable? user/password rejected? database doesn't exist?). Quote the MCP error verbatim — don't paraphrase.
+2. Point them at `~/.odoocli/odoo.env` as the canonical place to fix it. The startup plugin creates that file as a template on first run if it doesn't exist.
+3. Offer to **write the file for them** using your `write` tool if they tell you the values in chat. Use `~/.odoocli/odoo.env` as the path; preserve the existing comments; set file mode `0600` if your write tool supports it.
+4. After writing, tell them to restart opencode (or just reload — the env vars are read at process startup, so a restart is the simplest path).
+5. Never invent credentials, guess passwords, or try to "fix" auth by retrying with different values. Auth errors are a "stop and ask the human" condition.
+
+If `~/.odoocli/odoo.env` exists but values are missing, you can read it (`read ~/.odoocli/odoo.env`) to see the current state before asking the user what to add.
