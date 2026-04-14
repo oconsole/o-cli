@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# o-cli — OdooCLI launcher
+#
+# Resolves the repo root from this script's location, then exec's
+# `bun run dev` against it. Works whether the user runs the script
+# in place, via a symlink, or after adding bin/ to their PATH.
+#
+# Usage:
+#   ./bin/o-cli              # from a fresh checkout
+#   ln -s "$PWD/bin/o-cli" ~/.local/bin/o-cli   # one-time, then:
+#   o-cli                    # from anywhere
+
+set -euo pipefail
+
+# Resolve symlinks to find the real script location, even if `o-cli`
+# is invoked through a symlink in ~/.local/bin or /usr/local/bin.
+SCRIPT="${BASH_SOURCE[0]}"
+while [ -L "${SCRIPT}" ]; do
+    DIR="$(cd "$(dirname "${SCRIPT}")" >/dev/null 2>&1 && pwd)"
+    SCRIPT="$(readlink "${SCRIPT}")"
+    [[ "${SCRIPT}" != /* ]] && SCRIPT="${DIR}/${SCRIPT}"
+done
+BIN_DIR="$(cd "$(dirname "${SCRIPT}")" >/dev/null 2>&1 && pwd)"
+REPO_ROOT="$(cd "${BIN_DIR}/.." >/dev/null 2>&1 && pwd)"
+
+if ! command -v bun >/dev/null 2>&1; then
+    echo "❌ bun is not on your PATH." >&2
+    echo "   Install with:" >&2
+    echo "     macOS:  brew install bun" >&2
+    echo "     Linux:  curl -fsSL https://bun.sh/install | bash" >&2
+    exit 1
+fi
+
+cd "${REPO_ROOT}"
+exec bun run --cwd packages/opencode --conditions=browser src/index.ts "$@"

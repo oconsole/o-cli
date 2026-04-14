@@ -62,8 +62,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 Then clone and install:
 
 ```bash
-git clone --recurse-submodules https://github.com/oconsole/odoocli-app.git
-cd odoocli-app
+git clone --recurse-submodules https://github.com/oconsole/o-cli.git
+cd o-cli
 bun install
 ```
 
@@ -90,19 +90,20 @@ ODOO_PASSWORD=your-password   # Odoo 17–18
 
 The startup plugin (`plugins/odoo-env.ts`) reads this file before any Odoo tool runs. Anything you `export` in your shell still wins over the file — useful for CI or transient test connections.
 
-Then start it:
+Then start it. From a fresh clone:
 
 ```bash
-bun run dev
+bun run o-cli         # alias for `bun run dev`, easier to remember
 ```
 
-Once installed globally (see *Distribution* below), the same command becomes:
+For a globally accessible command, symlink the bundled launcher into your `$PATH`:
 
 ```bash
-odoocli
+ln -s "$PWD/bin/o-cli" ~/.local/bin/o-cli   # or /usr/local/bin/o-cli with sudo
+o-cli                                        # works from any directory
 ```
 
-The TUI launches with the `odoo` agent active. The Odoo MCP tools and the seven Odoo skills are ready to go — confirmed by the welcome banner listing them.
+The TUI launches with the `odoo` agent active. The Odoo MCP tools and the seven Odoo skills are ready to go — confirmed by the welcome banner showing the **O-CLI** logo and listing both.
 
 ## Example session
 
@@ -186,23 +187,24 @@ The benefit of this layout: you get the best Python MCP ecosystem (FastMCP, the 
 
 ## Distribution
 
-OdooCLI builds on opencode's distribution channels. Until we publish our own packaged release, the supported install path is `git clone --recurse-submodules` + `bun install`. Upstream opencode also ships:
+The supported install path today is **clone + `bun install` + `bin/o-cli` symlink**. We don't ship a packaged release yet — it's coming, but the source-install path covers every use case in the meantime.
 
-- `npm i -g opencode-ai`
-- `brew install anomalyco/tap/opencode`
-- A native macOS desktop app: `brew install --cask opencode-desktop`
-- A `curl | bash` installer
+If you'd rather use the *upstream* opencode binary plus the OdooCLI wiring (faster install, no clone), install opencode normally:
 
-If you want the *upstream* opencode binary plus the OdooCLI wiring, install opencode normally and copy `opencode.json` + `.opencode/agent/odoo.md` + the `vendor/` submodules into any directory you launch from. Opencode auto-loads them.
+```bash
+brew install anomalyco/tap/opencode      # or: npm i -g opencode-ai
+```
+
+…then copy `opencode.json`, `.opencode/agent/odoo.md`, `plugins/odoo-env.ts`, and the `vendor/` submodules into any directory you launch `opencode` from. Opencode auto-loads them and you get the same Odoo wiring with the upstream binary. The only thing you lose vs the source install is the rebranded `O-CLI` welcome logo (which lives in patched source), and the `o-cli` command alias (you'd type `opencode` instead).
 
 ## Development
 
 ```bash
-git clone --recurse-submodules https://github.com/oconsole/odoocli-app.git
-cd odoocli-app
+git clone --recurse-submodules https://github.com/oconsole/o-cli.git
+cd o-cli
 bun install
 bun turbo typecheck --filter=opencode    # typecheck the agent package
-bun run dev                              # run the TUI in dev mode
+bun run o-cli                            # run the TUI in dev mode
 ```
 
 The Odoo wiring is just three files — to iterate on the system prompt, edit `.opencode/agent/odoo.md` and reload. To swap in a different MCP server, edit `opencode.json`. To add or update skills, work in the `vendor/odoo-skills` submodule and commit a bumped pointer here.
