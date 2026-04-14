@@ -197,6 +197,56 @@ brew install anomalyco/tap/opencode      # or: npm i -g opencode-ai
 
 …then copy `opencode.json`, `.opencode/agent/odoo.md`, `plugins/odoo-env.ts`, and the `vendor/` submodules into any directory you launch `opencode` from. Opencode auto-loads them and you get the same Odoo wiring with the upstream binary. The only thing you lose vs the source install is the rebranded `O-CLI` welcome logo (which lives in patched source), and the `o-cli` command alias (you'd type `opencode` instead).
 
+## Native desktop app (O-CLI Desktop)
+
+A native macOS / Windows / Linux desktop app is built from the same monorepo via [Tauri](https://tauri.app), reusing the upstream `packages/desktop` package with an O-CLI brand overlay (`packages/desktop/src-tauri/tauri.o-cli.conf.json`). The overlay rebrands product name, bundle identifier, window title, and English-language UI strings without forking the entire desktop package — so future updates from upstream's desktop work flow in cleanly.
+
+**Prerequisites for building** (in addition to Bun and `uv`):
+- A Mac (for `.dmg` / `.app` builds), Windows machine (for `.exe`), or Linux box (for `.deb` / `.rpm` / AppImage). Tauri can't cross-compile bundles between OSes.
+- [Rust toolchain](https://www.rust-lang.org/tools/install) — `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+- On macOS: Xcode Command Line Tools (`xcode-select --install`)
+
+**Run in dev mode** (live reload):
+
+```bash
+bun run dev:o-cli-desktop
+```
+
+**Build a distributable bundle** for the host OS:
+
+```bash
+bun run build:o-cli-desktop
+# Output:
+#   macOS:    packages/desktop/src-tauri/target/release/bundle/macos/O-CLI.app
+#             packages/desktop/src-tauri/target/release/bundle/dmg/O-CLI_<version>_aarch64.dmg
+#   Linux:    packages/desktop/src-tauri/target/release/bundle/{deb,rpm,appimage}/...
+#   Windows:  packages/desktop/src-tauri/target/release/bundle/{nsis,msi}/...
+```
+
+The first build downloads + compiles the Rust toolchain dependencies (~300MB, 5–10 minutes). Subsequent builds are incremental and fast.
+
+**Sign + notarize on macOS** (one-time setup, optional but required for distribution):
+
+```bash
+# Set these env vars before `bun run build:o-cli-desktop`
+export APPLE_CERTIFICATE="$(base64 < your-developer-id-cert.p12)"
+export APPLE_CERTIFICATE_PASSWORD="..."
+export APPLE_SIGNING_IDENTITY="Developer ID Application: Your Name (TEAMID)"
+export APPLE_ID="you@example.com"
+export APPLE_TEAM_ID="TEAMID"
+export APPLE_PASSWORD="app-specific-password"
+```
+
+Tauri's bundler picks these up automatically and produces a signed, notarized, stapled `.dmg` ready for `brew install --cask` distribution. See [Tauri's macOS code-signing docs](https://tauri.app/v2/distribute/sign/macos/) for the full flow.
+
+**What gets rebranded vs upstream `opencode-desktop`**:
+- Window title: "O-CLI" (was "OpenCode")
+- Bundle product name + identifier: "O-CLI" / `ai.oconsole.o-cli`
+- English menu / updater / installer strings (other languages still say OpenCode for now — the overlay only patches `en.ts`; PRs welcome)
+- App icon: currently inherits `icons/prod/icon.icns` from upstream. To swap in custom O-CLI icons, drop replacements at `packages/desktop/src-tauri/icons/o-cli/icon.icns` and update the `bundle.icon` array in `tauri.o-cli.conf.json`.
+
+**What's *not* rebranded (intentionally)**: the embedded CLI sidecar binary is still named `opencode-cli` internally (invisible to users), and 22 non-English language files still say "OpenCode" (the overlay scope is English-only — community translation contributions welcome).
+
 ## Development
 
 ```bash

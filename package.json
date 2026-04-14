@@ -10,6 +10,8 @@
     "o-cli": "bun run --cwd packages/opencode --conditions=browser src/index.ts",
     "setup": "bun run script/setup-odoo.ts",
     "dev:desktop": "bun --cwd packages/desktop tauri dev",
+    "dev:o-cli-desktop": "bun --cwd packages/desktop tauri dev --config src-tauri/tauri.o-cli.conf.json",
+    "build:o-cli-desktop": "bun --cwd packages/desktop tauri build --config src-tauri/tauri.o-cli.conf.json",
     "dev:web": "bun --cwd packages/app dev",
     "dev:console": "ulimit -n 10240 2>/dev/null; bun run --cwd packages/console/app dev",
     "dev:storybook": "bun --cwd packages/storybook storybook",
