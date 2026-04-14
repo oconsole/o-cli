@@ -17,7 +17,7 @@ ts-dist
 /result
 refs
 Session.vim
-/opencode.json
+# /opencode.json is committed in this fork — it carries the Odoo MCP + skill wiring
 a.out
 target
 .scripts

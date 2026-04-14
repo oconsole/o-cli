@@ -1,0 +1,24 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "odoo",
+  "mcp": {
+    "odoo": {
+      "type": "local",
+      "command": [
+        "uv",
+        "run",
+        "--python",
+        "3.11",
+        "--script",
+        "./vendor/odoo-mcp-server/odoo_mcp_server.py"
+      ],
+      "enabled": true,
+      "timeout": 15000
+    }
+  },
+  "skills": {
+    "paths": [
+      "./vendor/odoo-skills"
+    ]
+  }
+}

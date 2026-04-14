@@ -1,0 +1,6 @@
+[submodule "vendor/odoo-mcp-server"]
+	path = vendor/odoo-mcp-server
+	url = https://github.com/oconsole/odoo-mcp-server.git
+[submodule "vendor/odoo-skills"]
+	path = vendor/odoo-skills
+	url = https://github.com/oconsole/odoo-skills.git

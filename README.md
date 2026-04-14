@@ -1,141 +1,125 @@
-<p align="center">
-  <a href="https://opencode.ai">
-    <picture>
-      <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
-      <source srcset="packages/console/app/src/asset/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src="packages/console/app/src/asset/logo-ornate-light.svg" alt="OpenCode logo">
-    </picture>
-  </a>
-</p>
-<p align="center">The open source AI coding agent.</p>
-<p align="center">
-  <a href="https://opencode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/opencode-ai"><img alt="npm" src="https://img.shields.io/npm/v/opencode-ai?style=flat-square" /></a>
-  <a href="https://github.com/anomalyco/opencode/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/anomalyco/opencode/publish.yml?style=flat-square&branch=dev" /></a>
-</p>
+# OdooCLI
 
-<p align="center">
-  <a href="README.md">English</a> |
-  <a href="README.zh.md">简体中文</a> |
-  <a href="README.zht.md">繁體中文</a> |
-  <a href="README.ko.md">한국어</a> |
-  <a href="README.de.md">Deutsch</a> |
-  <a href="README.es.md">Español</a> |
-  <a href="README.fr.md">Français</a> |
-  <a href="README.it.md">Italiano</a> |
-  <a href="README.da.md">Dansk</a> |
-  <a href="README.ja.md">日本語</a> |
-  <a href="README.pl.md">Polski</a> |
-  <a href="README.ru.md">Русский</a> |
-  <a href="README.bs.md">Bosanski</a> |
-  <a href="README.ar.md">العربية</a> |
-  <a href="README.no.md">Norsk</a> |
-  <a href="README.br.md">Português (Brasil)</a> |
-  <a href="README.th.md">ไทย</a> |
-  <a href="README.tr.md">Türkçe</a> |
-  <a href="README.uk.md">Українська</a> |
-  <a href="README.bn.md">বাংলা</a> |
-  <a href="README.gr.md">Ελληνικά</a> |
-  <a href="README.vi.md">Tiếng Việt</a>
-</p>
+**An AI terminal agent for Odoo.** Talk to your Odoo instance in plain English — diagnose health, audit inventory, post invoices, deploy modules, chase stuck cron jobs — without leaving the terminal.
 
-[![OpenCode Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://opencode.ai)
+OdooCLI is a fork of [opencode](https://github.com/anomalyco/opencode) preconfigured for Odoo. The general-purpose agent loop, TUI, plugin system, MCP support, and skill discovery are inherited from opencode unchanged. What we add on top is everything Odoo-specific: a bundled Odoo MCP server, a curated Odoo skill pack, and a default `odoo` agent prompt that knows the right tool to reach for.
 
----
+## What makes it different from upstream opencode
 
-### Installation
+| Ships with | What it gives you |
+|---|---|
+| **Odoo MCP server** ([`vendor/odoo-mcp-server`](https://github.com/oconsole/odoo-mcp-server)) | 18 native Odoo RPC tools the model calls directly: `odoo_search_read`, `odoo_create`, `odoo_update`, `odoo_doctor`, `odoo_execute`, `odoo_get_fields`, `odoo_get_view`, `odoo_export`, and more. Pre-wired in [`opencode.json`](opencode.json) — no plugin to install. |
+| **Odoo skill pack** ([`vendor/odoo-skills`](https://github.com/oconsole/odoo-skills)) | 7 markdown skills auto-discovered via `skills.paths`: `odoo-system-inspect`, `odoo-accounting-inspect`, `odoo-stock-inspect`, `odoo-mrp-inspect`, `odoo-model-inspect`, `odoo-model-customize`, `odoo-model-customize-demo`. The model loads them on demand when the user's question matches their WHEN/DO-NOT-USE conditions. |
+| **`odoo` default agent** ([`.opencode/agent/odoo.md`](.opencode/agent/odoo.md)) | Primary agent with an Odoo-tailored system prompt: read-before-write defaults, mutation gating, version-aware field handling, record-ID citations. Set as `default_agent` so `odoocli` drops you into it. |
+
+The point: you run OdooCLI, point it at your Odoo instance, and it already knows how to talk to it.
+
+## Quick start
+
+Requires **Bun 1.3.10+** and **`uv`** (the Odoo MCP server runs as a Python script via `uv run`).
 
 ```bash
-# YOLO
-curl -fsSL https://opencode.ai/install | bash
-
-# Package managers
-npm i -g opencode-ai@latest        # or bun/pnpm/yarn
-scoop install opencode             # Windows
-choco install opencode             # Windows
-brew install anomalyco/tap/opencode # macOS and Linux (recommended, always up to date)
-brew install opencode              # macOS and Linux (official brew formula, updated less)
-sudo pacman -S opencode            # Arch Linux (Stable)
-paru -S opencode-bin               # Arch Linux (Latest from AUR)
-mise use -g opencode               # Any OS
-nix run nixpkgs#opencode           # or github:anomalyco/opencode for latest dev branch
+git clone --recurse-submodules https://github.com/oconsole/odoocli-app.git
+cd odoocli-app
+bun install
 ```
 
-> [!TIP]
-> Remove versions older than 0.1.x before installing.
+> If you already cloned without `--recurse-submodules`, run `git submodule update --init --recursive` to fetch `vendor/odoo-mcp-server` and `vendor/odoo-skills`.
 
-### Desktop App (BETA)
-
-OpenCode is also available as a desktop application. Download directly from the [releases page](https://github.com/anomalyco/opencode/releases) or [opencode.ai/download](https://opencode.ai/download).
-
-| Platform              | Download                              |
-| --------------------- | ------------------------------------- |
-| macOS (Apple Silicon) | `opencode-desktop-darwin-aarch64.dmg` |
-| macOS (Intel)         | `opencode-desktop-darwin-x64.dmg`     |
-| Windows               | `opencode-desktop-windows-x64.exe`    |
-| Linux                 | `.deb`, `.rpm`, or AppImage           |
+Set your Odoo connection in your shell or `~/.odoocli/.env`:
 
 ```bash
-# macOS (Homebrew)
-brew install --cask opencode-desktop
-# Windows (Scoop)
-scoop bucket add extras; scoop install extras/opencode-desktop
+export ODOO_URL=https://your-instance.odoo.com
+export ODOO_DB=your-database
+export ODOO_USER=admin
+export ODOO_PASSWORD=your-password      # Odoo 17–18
+# export ODOO_API_KEY=...                # preferred on Odoo 19+
 ```
 
-#### Installation Directory
-
-The install script respects the following priority order for the installation path:
-
-1. `$OPENCODE_INSTALL_DIR` - Custom installation directory
-2. `$XDG_BIN_DIR` - XDG Base Directory Specification compliant path
-3. `$HOME/bin` - Standard user binary directory (if it exists or can be created)
-4. `$HOME/.opencode/bin` - Default fallback
+Then start it:
 
 ```bash
-# Examples
-OPENCODE_INSTALL_DIR=/usr/local/bin curl -fsSL https://opencode.ai/install | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://opencode.ai/install | bash
+bun run dev
 ```
 
-### Agents
+Once installed globally (see *Distribution* below), the same command becomes:
 
-OpenCode includes two built-in agents you can switch between with the `Tab` key.
+```bash
+odoocli
+```
 
-- **build** - Default, full-access agent for development work
-- **plan** - Read-only agent for analysis and code exploration
-  - Denies file edits by default
-  - Asks permission before running bash commands
-  - Ideal for exploring unfamiliar codebases or planning changes
+The TUI launches with the `odoo` agent active. The Odoo MCP tools and the seven Odoo skills are ready to go — confirmed by the welcome banner listing them.
 
-Also included is a **general** subagent for complex searches and multistep tasks.
-This is used internally and can be invoked using `@general` in messages.
+## Example session
 
-Learn more about [agents](https://opencode.ai/docs/agents).
+```
+❯ is anything broken on this instance?
+  [calls mcp__odoo__odoo_doctor + odoo-system-inspect skill]
+  3 issues found:
+    • cron "mail.mail_scheduler" has been stuck for 47 min  (ir.cron id=42)
+    • 12 messages in the outgoing queue for 2+ hours
+    • module `account_edi` has a pending upgrade
 
-### Documentation
+❯ list draft invoices over $1000 from this quarter
+  [calls mcp__odoo__odoo_search_read on account.move]
+  Found 8 invoices: account.move(id=12345), account.move(id=12351), …
 
-For more info on how to configure OpenCode, [**head over to our docs**](https://opencode.ai/docs).
+❯ post all of them
+  → Asks for explicit confirmation, then calls odoo_execute("action_post")
 
-### Contributing
+❯ /agent build         # switch to the upstream coding agent for module work
+```
 
-If you're interested in contributing to OpenCode, please read our [contributing docs](./CONTRIBUTING.md) before submitting a pull request.
+## How the wiring works
 
-### Building on OpenCode
+Three small files do all the work — none of them touch opencode's source code. They use the public config + agent + MCP surfaces opencode already exposes:
 
-If you are working on a project that's related to OpenCode and is using "opencode" as part of its name, for example "opencode-dashboard" or "opencode-mobile", please add a note to your README to clarify that it is not built by the OpenCode team and is not affiliated with us in any way.
+```
+opencode.json                      ← MCP server + skill paths + default agent
+.opencode/agent/odoo.md            ← system prompt for the odoo agent
+vendor/odoo-mcp-server/            ← submodule (Python MCP server)
+vendor/odoo-skills/                ← submodule (7 SKILL.md files)
+```
 
-### FAQ
+Want to disable the Odoo agent and use OdooCLI as plain opencode? Press `Tab` to switch to `build` or `plan` — the upstream agents are still there.
 
-#### How is this different from Claude Code?
+## Configuration
 
-It's very similar to Claude Code in terms of capability. Here are the key differences:
+| Where | What |
+|---|---|
+| `opencode.json` (committed) | MCP server, skill paths, default agent |
+| `~/.config/opencode/opencode.json` | Global per-user opencode config |
+| `~/.odoocli/.env` (or shell) | Odoo credentials (`ODOO_URL`, `ODOO_DB`, `ODOO_USER`, `ODOO_PASSWORD`/`ODOO_API_KEY`) |
+| `.opencode/agent/*.md` | Custom agents (project-scoped) |
+| `vendor/odoo-skills/*/SKILL.md` | The bundled Odoo skills (submodule — track upstream) |
 
-- 100% open source
-- Not coupled to any provider. Although we recommend the models we provide through [OpenCode Zen](https://opencode.ai/zen), OpenCode can be used with Claude, OpenAI, Google, or even local models. As models evolve, the gaps between them will close and pricing will drop, so being provider-agnostic is important.
-- Out-of-the-box LSP support
-- A focus on TUI. OpenCode is built by neovim users and the creators of [terminal.shop](https://terminal.shop); we are going to push the limits of what's possible in the terminal.
-- A client/server architecture. This, for example, can allow OpenCode to run on your computer while you drive it remotely from a mobile app, meaning that the TUI frontend is just one of the possible clients.
+## Distribution
 
----
+OdooCLI builds on opencode's distribution channels. Until we publish our own packaged release, the supported install path is `git clone --recurse-submodules` + `bun install`. Upstream opencode also ships:
 
-**Join our community** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)
+- `npm i -g opencode-ai`
+- `brew install anomalyco/tap/opencode`
+- A native macOS desktop app: `brew install --cask opencode-desktop`
+- A `curl | bash` installer
+
+If you want the *upstream* opencode binary plus the OdooCLI wiring, install opencode normally and copy `opencode.json` + `.opencode/agent/odoo.md` + the `vendor/` submodules into any directory you launch from. Opencode auto-loads them.
+
+## Development
+
+```bash
+git clone --recurse-submodules https://github.com/oconsole/odoocli-app.git
+cd odoocli-app
+bun install
+bun turbo typecheck --filter=opencode    # typecheck the agent package
+bun run dev                              # run the TUI in dev mode
+```
+
+The Odoo wiring is just three files — to iterate on the system prompt, edit `.opencode/agent/odoo.md` and reload. To swap in a different MCP server, edit `opencode.json`. To add or update skills, work in the `vendor/odoo-skills` submodule and commit a bumped pointer here.
+
+## Upstream
+
+Everything outside `vendor/`, `opencode.json`, `.opencode/agent/odoo.md`, and this README is upstream opencode code, owned and maintained by [anomalyco](https://github.com/anomalyco/opencode). For agent loop bugs, TUI issues, or model provider questions, file upstream. For Odoo-specific issues — MCP tool bugs, skill content, agent prompt — file here.
+
+## License
+
+MIT, matching upstream opencode. The `vendor/odoo-mcp-server` and `vendor/odoo-skills` submodules are MIT under the same `oconsole` org.
