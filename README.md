@@ -27,10 +27,18 @@ bun install
 
 > If you already cloned without `--recurse-submodules`, run `git submodule update --init --recursive` to fetch `vendor/odoo-mcp-server` and `vendor/odoo-skills`.
 
-First launch creates `~/.odoocli/odoo.env` as a template and prints a banner asking you to fill it in:
+Easiest path — run the interactive setup wizard:
 
 ```bash
-# ~/.odoocli/odoo.env  (auto-created on first run)
+bun run setup
+```
+
+It walks you through `ODOO_URL`, `ODOO_DB`, `ODOO_USER`, and your password or API key, then writes them to `~/.odoocli/odoo.env` (mode 0600). Re-run the wizard any time to change values — it shows the current ones in `[brackets]` and lets you press Enter to keep them.
+
+Or edit the file by hand:
+
+```bash
+# ~/.odoocli/odoo.env  (auto-created on first launch if it doesn't exist)
 ODOO_URL=https://your-instance.odoo.com
 ODOO_DB=your-database-name
 ODOO_USER=admin
@@ -38,7 +46,7 @@ ODOO_PASSWORD=your-password   # Odoo 17–18
 # ODOO_API_KEY=...             # preferred on Odoo 19+
 ```
 
-The startup plugin (`plugins/odoo-env.ts`) reads this file before any Odoo tool runs. Anything you `export` in your shell still wins — useful for CI or transient test connections.
+The startup plugin (`plugins/odoo-env.ts`) reads this file before any Odoo tool runs. Anything you `export` in your shell still wins over the file — useful for CI or transient test connections.
 
 Then start it:
 
