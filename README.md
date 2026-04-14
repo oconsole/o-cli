@@ -8,12 +8,43 @@ OdooCLI is a fork of [opencode](https://github.com/anomalyco/opencode) preconfig
 
 | Ships with | What it gives you |
 |---|---|
-| **Odoo MCP server** ([`vendor/odoo-mcp-server`](https://github.com/oconsole/odoo-mcp-server)) | 18 native Odoo RPC tools the model calls directly: `odoo_search_read`, `odoo_create`, `odoo_update`, `odoo_doctor`, `odoo_execute`, `odoo_get_fields`, `odoo_get_view`, `odoo_export`, and more. Pre-wired in [`opencode.json`](opencode.json) — no plugin to install. |
-| **Odoo skill pack** ([`vendor/odoo-skills`](https://github.com/oconsole/odoo-skills)) | 7 markdown skills auto-discovered via `skills.paths`: `odoo-system-inspect`, `odoo-accounting-inspect`, `odoo-stock-inspect`, `odoo-mrp-inspect`, `odoo-model-inspect`, `odoo-model-customize`, `odoo-model-customize-demo`. The model loads them on demand when the user's question matches their WHEN/DO-NOT-USE conditions. |
+| **Odoo MCP server** — git submodule from [`oconsole/odoo-mcp-server`](https://github.com/oconsole/odoo-mcp-server) at [`vendor/odoo-mcp-server`](vendor/odoo-mcp-server) | 18 native Odoo RPC tools the model calls directly: `odoo_search_read`, `odoo_create`, `odoo_update`, `odoo_doctor`, `odoo_execute`, `odoo_get_fields`, `odoo_get_view`, `odoo_export`, and more. Pre-wired in [`opencode.json`](opencode.json) — no plugin to install. |
+| **Odoo skill pack** — git submodule from [`oconsole/odoo-skills`](https://github.com/oconsole/odoo-skills) at [`vendor/odoo-skills`](vendor/odoo-skills) | 7 markdown skills auto-discovered via `skills.paths`: `odoo-system-inspect`, `odoo-accounting-inspect`, `odoo-stock-inspect`, `odoo-mrp-inspect`, `odoo-model-inspect`, `odoo-model-customize`, `odoo-model-customize-demo`. The model loads them on demand when the user's question matches their WHEN/DO-NOT-USE conditions. |
 | **`odoo` default agent** ([`.opencode/agent/odoo.md`](.opencode/agent/odoo.md)) | Primary agent with an Odoo-tailored system prompt: read-before-write defaults, mutation gating, version-aware field handling, record-ID citations. Set as `default_agent` so `odoocli` drops you into it. |
 | **Connection plugin** ([`plugins/odoo-env.ts`](plugins/odoo-env.ts)) | Startup plugin that loads `~/.odoocli/odoo.env` into the environment before any Odoo tool runs. On first launch it creates the file as a template and prints a banner telling you what to fill in — so you never get a silent "connection refused" mid-conversation. |
 
 The point: you run OdooCLI, point it at your Odoo instance, and it already knows how to talk to it.
+
+## Bundled Odoo submodules
+
+The Odoo MCP server and the Odoo skill pack are **already added to this repo as git submodules** — you don't need to install or configure them separately. A `git clone --recurse-submodules` pulls everything in one shot.
+
+| Path | Source repo | Tracks | Purpose |
+|---|---|---|---|
+| `vendor/odoo-mcp-server` | [`github.com/oconsole/odoo-mcp-server`](https://github.com/oconsole/odoo-mcp-server) | Pinned commit (currently `v0.1.0+2`) | Python FastMCP server exposing 18 Odoo RPC tools |
+| `vendor/odoo-skills` | [`github.com/oconsole/odoo-skills`](https://github.com/oconsole/odoo-skills) | `master` branch HEAD | 7 SKILL.md workflows the agent loads on demand |
+
+Both source repos are MIT-licensed and live under the same `oconsole` org, so you (or anyone) can fork them, send PRs, or pin to a specific tag.
+
+**Pulling them in** (only matters if you forgot `--recurse-submodules` on the initial clone):
+
+```bash
+git submodule update --init --recursive
+```
+
+**Updating them later** (when upstream ships a new release):
+
+```bash
+# pull latest from upstream into the submodules
+git submodule update --remote vendor/odoo-mcp-server vendor/odoo-skills
+
+# bake the new pointers into this repo
+git add vendor/odoo-mcp-server vendor/odoo-skills
+git commit -m "chore: bump Odoo submodules"
+git push
+```
+
+Anyone who pulls afterward gets the same versions automatically.
 
 ## Quick start
 
