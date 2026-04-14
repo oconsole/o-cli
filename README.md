@@ -17,7 +17,18 @@ The point: you run OdooCLI, point it at your Odoo instance, and it already knows
 
 ## Quick start
 
-Requires **Bun 1.3.10+** and **`uv`** (the Odoo MCP server runs as a Python script via `uv run`).
+Two prerequisites: **Bun ≥ 1.3.11** (the agent runtime) and **`uv` ≥ 0.5** (used to launch the Python MCP server — see [About the Python MCP server](#about-the-python-mcp-server) below).
+
+```bash
+# macOS
+brew install bun uv
+
+# Linux / WSL
+curl -fsSL https://bun.sh/install | bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Then clone and install:
 
 ```bash
 git clone --recurse-submodules https://github.com/oconsole/odoocli-app.git
@@ -104,6 +115,43 @@ Want to disable the Odoo agent and use OdooCLI as plain opencode? Press `Tab` to
 | `~/.odoocli/.env` (or shell) | Odoo credentials (`ODOO_URL`, `ODOO_DB`, `ODOO_USER`, `ODOO_PASSWORD`/`ODOO_API_KEY`) |
 | `.opencode/agent/*.md` | Custom agents (project-scoped) |
 | `vendor/odoo-skills/*/SKILL.md` | The bundled Odoo skills (submodule — track upstream) |
+
+## About the Python MCP server
+
+> "OdooCLI is a TypeScript fork of opencode, but the Odoo MCP server is Python — is that a problem?"
+
+**No.** MCP is a JSON-RPC protocol over stdio (or HTTP/SSE for remote servers), not a language binding. The client (opencode) writes JSON-RPC requests to the server's stdin and reads responses from stdout. Whatever's on the other end of those pipes can be Python, Go, Rust, bash — opencode never imports the Python module, it just spawns it as a subprocess. They communicate exclusively through messages.
+
+Concretely:
+
+```
+┌──────────────┐                    ┌─────────────────────┐
+│   opencode   │   JSON-RPC stdio   │  odoo_mcp_server.py │
+│  (TS / Bun)  │ ◄────────────────► │  (Python / FastMCP) │
+│              │  init / list_tools │                     │
+│  spawns the  │  call_tool         │   talks to Odoo     │
+│  server as a │  ...               │   over JSON-RPC     │
+│  subprocess  │                    │                     │
+└──────────────┘                    └──────────┬──────────┘
+                                               │
+                                               ▼
+                                      ┌─────────────────┐
+                                      │  Odoo instance  │
+                                      └─────────────────┘
+```
+
+The Python server uses [FastMCP](https://github.com/jlowin/fastmcp), a production-grade Python MCP framework, and ships as a single self-contained script with [PEP 723](https://peps.python.org/pep-0723/) inline metadata declaring its dependencies:
+
+```python
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["fastmcp>=2.0", "httpx>=0.27"]
+# ///
+```
+
+When `opencode.json` says `"command": ["uv", "run", "--script", "./vendor/odoo-mcp-server/odoo_mcp_server.py"]`, **`uv` reads that metadata, downloads Python 3.11 if you don't have it, installs `fastmcp` + `httpx` into a cached venv, and runs the script — all in one command, no manual venv setup ever**. That's why `uv` is the second prerequisite alongside Bun.
+
+The benefit of this layout: you get the best Python MCP ecosystem (FastMCP, the `mcp` Python SDK, the huge library of Odoo Python clients) talking through a battle-tested protocol to the best TypeScript agent runtime (opencode's TUI, plugin system, model routing). No Python knowledge required to use OdooCLI; no TypeScript knowledge required to extend the Odoo MCP server.
 
 ## Distribution
 
