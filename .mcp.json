@@ -10,6 +10,9 @@
         "ODOO_PASSWORD": "${ODOO_PASSWORD}",
         "ODOO_API_KEY": "${ODOO_API_KEY}"
       }
+    },
+    "opencode": {
+      "url": "http://127.0.0.1:4096/mcp"
     }
   }
 }
