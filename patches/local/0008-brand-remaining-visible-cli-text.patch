@@ -7,7 +7,7 @@ index 28a0551..188b18d 100644
          }
  
 -        // Setup opencode session
-+        // Setup Od-cli session
++        // Setup O-CLI session
          const repoData = await fetchRepo()
          session = await Session.create({
            permission: [
@@ -16,7 +16,7 @@ index 28a0551..188b18d 100644
            return session.id.slice(-8)
          })()
 -        console.log("opencode session", session.id)
-+        console.log("Od-cli session", session.id)
++        console.log("O-CLI session", session.id)
  
          // Handle event types:
          // REPO_EVENTS (schedule, workflow_dispatch): no issue/PR context, output to logs/PR only
@@ -25,7 +25,7 @@ index 28a0551..188b18d 100644
  
        async function chat(message: string, files: PromptFiles = []) {
 -        console.log("Sending message to opencode...")
-+        console.log("Sending message to Od-cli...")
++        console.log("Sending message to O-CLI...")
  
          const result = await SessionPrompt.prompt({
            sessionID: session.id,
@@ -34,7 +34,7 @@ index 28a0551..188b18d 100644
            return `<a href="${shareBaseUrl}/s/${shareId}"><img width="200" alt="${titleAlt}" src="https://social-cards.sst.dev/opencode-share/${title64}.png?model=${providerID}/${modelID}&version=${session.version}&id=${shareId}" /></a>\n`
          })()
 -        const shareUrl = shareId ? `[opencode session](${shareBaseUrl}/s/${shareId})&nbsp;&nbsp;|&nbsp;&nbsp;` : ""
-+        const shareUrl = shareId ? `[Od-cli session](${shareBaseUrl}/s/${shareId})&nbsp;&nbsp;|&nbsp;&nbsp;` : ""
++        const shareUrl = shareId ? `[O-CLI session](${shareBaseUrl}/s/${shareId})&nbsp;&nbsp;|&nbsp;&nbsp;` : ""
          return `\n\n${image}${shareUrl}[github run](${runUrl})`
        }
  
@@ -43,7 +43,7 @@ index 28a0551..188b18d 100644
            "<github_action_context>",
            "You are running as a GitHub Action. Important:",
 -          "- Git push and PR creation are handled AUTOMATICALLY by the opencode infrastructure after your response",
-+          "- Git push and PR creation are handled AUTOMATICALLY by the Od-cli infrastructure after your response",
++          "- Git push and PR creation are handled AUTOMATICALLY by the O-CLI infrastructure after your response",
            "- Do NOT include warnings or disclaimers about GitHub tokens, workflow permissions, or PR creation capabilities",
            "- Do NOT suggest manual steps for creating PRs or pushing code - this happens automatically",
            "- Focus only on the code changes and your analysis/response",
@@ -52,7 +52,7 @@ index 28a0551..188b18d 100644
            "<github_action_context>",
            "You are running as a GitHub Action. Important:",
 -          "- Git push and PR creation are handled AUTOMATICALLY by the opencode infrastructure after your response",
-+          "- Git push and PR creation are handled AUTOMATICALLY by the Od-cli infrastructure after your response",
++          "- Git push and PR creation are handled AUTOMATICALLY by the O-CLI infrastructure after your response",
            "- Do NOT include warnings or disclaimers about GitHub tokens, workflow permissions, or PR creation capabilities",
            "- Do NOT suggest manual steps for creating PRs or pushing code - this happens automatically",
            "- Focus only on the code changes and your analysis/response",
@@ -65,7 +65,7 @@ index e656c83..786f142 100644
    command: "web",
    builder: (yargs) => withNetworkOptions(yargs),
 -  describe: "start opencode server and open web interface",
-+  describe: "start Od-cli server and open web interface",
++  describe: "start O-CLI server and open web interface",
    handler: async (args) => {
      if (!Flag.OPENCODE_SERVER_PASSWORD) {
        UI.println(UI.Style.TEXT_WARNING_BOLD + "!  " + "OPENCODE_SERVER_PASSWORD is not set; server is unsecured.")
@@ -78,7 +78,7 @@ index 6cda497..954ccf0 100644
    if (typeof range !== "string") return
    if (!semver.satisfies(opencodeVersion, range)) {
 -    throw new Error(`Plugin requires opencode ${range} but running ${opencodeVersion}`)
-+    throw new Error(`Plugin requires Od-cli ${range} but running ${opencodeVersion}`)
++    throw new Error(`Plugin requires O-CLI ${range} but running ${opencodeVersion}`)
    }
  }
  
