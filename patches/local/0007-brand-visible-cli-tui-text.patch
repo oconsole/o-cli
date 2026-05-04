@@ -1,0 +1,435 @@
+diff --git a/packages/opencode/src/cli/cmd/pr.ts b/packages/opencode/src/cli/cmd/pr.ts
+index f392bab..d5c3ec9 100644
+--- a/packages/opencode/src/cli/cmd/pr.ts
++++ b/packages/opencode/src/cli/cmd/pr.ts
+@@ -7,7 +7,7 @@ import { Process } from "@/util/process"
+ 
+ export const PrCommand = cmd({
+   command: "pr <number>",
+-  describe: "fetch and checkout a GitHub PR branch, then run opencode",
++  describe: "fetch and checkout a GitHub PR branch, then run Od-cli",
+   builder: (yargs) =>
+     yargs.positional("number", {
+       type: "number",
+@@ -98,7 +98,7 @@ export const PrCommand = cmd({
+               const sessionMatch = prInfo.body.match(/https:\/\/opncd\.ai\/s\/([a-zA-Z0-9_-]+)/)
+               if (sessionMatch) {
+                 const sessionUrl = sessionMatch[0]
+-                UI.println(`Found opencode session: ${sessionUrl}`)
++                UI.println(`Found Od-cli session: ${sessionUrl}`)
+                 UI.println(`Importing session...`)
+ 
+                 const importResult = await Process.text(["opencode", "import", sessionUrl], {
+@@ -120,7 +120,7 @@ export const PrCommand = cmd({
+ 
+         UI.println(`Successfully checked out PR #${prNumber} as branch '${localBranchName}'`)
+         UI.println()
+-        UI.println("Starting opencode...")
++        UI.println("Starting Od-cli...")
+         UI.println()
+ 
+         const opencodeArgs = sessionId ? ["-s", sessionId] : []
+@@ -131,7 +131,7 @@ export const PrCommand = cmd({
+           cwd: process.cwd(),
+         })
+         const code = await opencodeProcess.exited
+-        if (code !== 0) throw new Error(`opencode exited with code ${code}`)
++        if (code !== 0) throw new Error(`Od-cli exited with code ${code}`)
+       },
+     })
+   },
+diff --git a/packages/opencode/src/cli/cmd/providers.ts b/packages/opencode/src/cli/cmd/providers.ts
+index 1ab0ecc..8da254a 100644
+--- a/packages/opencode/src/cli/cmd/providers.ts
++++ b/packages/opencode/src/cli/cmd/providers.ts
+@@ -257,7 +257,7 @@ export const ProvidersLoginCommand = cmd({
+   builder: (yargs) =>
+     yargs
+       .positional("url", {
+-        describe: "opencode auth provider",
++        describe: "Od-cli auth provider",
+         type: "string",
+       })
+       .option("provider", {
+diff --git a/packages/opencode/src/cli/cmd/run.ts b/packages/opencode/src/cli/cmd/run.ts
+index 04130aa..59bd356 100644
+--- a/packages/opencode/src/cli/cmd/run.ts
++++ b/packages/opencode/src/cli/cmd/run.ts
+@@ -220,7 +220,7 @@ function normalizePath(input?: string) {
+ 
+ export const RunCommand = cmd({
+   command: "run [message..]",
+-  describe: "run opencode with a message",
++  describe: "run Od-cli with a message",
+   builder: (yargs: Argv) => {
+     return yargs
+       .positional("message", {
+@@ -278,7 +278,7 @@ export const RunCommand = cmd({
+       })
+       .option("attach", {
+         type: "string",
+-        describe: "attach to a running opencode server (e.g., http://localhost:4096)",
++        describe: "attach to a running Od-cli server (e.g., http://localhost:4096)",
+       })
+       .option("password", {
+         alias: ["p"],
+diff --git a/packages/opencode/src/cli/cmd/serve.ts b/packages/opencode/src/cli/cmd/serve.ts
+index 73e7a18..0f17856 100644
+--- a/packages/opencode/src/cli/cmd/serve.ts
++++ b/packages/opencode/src/cli/cmd/serve.ts
+@@ -9,14 +9,14 @@ import { Installation } from "../../installation"
+ export const ServeCommand = cmd({
+   command: "serve",
+   builder: (yargs) => withNetworkOptions(yargs),
+-  describe: "starts a headless opencode server",
++  describe: "starts a headless Od-cli server",
+   handler: async (args) => {
+     if (!Flag.OPENCODE_SERVER_PASSWORD) {
+       console.log("Warning: OPENCODE_SERVER_PASSWORD is not set; server is unsecured.")
+     }
+     const opts = await resolveNetworkOptions(args)
+     const server = await Server.listen(opts)
+-    console.log(`opencode server listening on http://${server.hostname}:${server.port}`)
++    console.log(`Od-cli server listening on http://${server.hostname}:${server.port}`)
+ 
+     await new Promise(() => {})
+     await server.stop()
+diff --git a/packages/opencode/src/cli/cmd/tui/app.tsx b/packages/opencode/src/cli/cmd/tui/app.tsx
+index 8c4f596..8e5c990 100644
+--- a/packages/opencode/src/cli/cmd/tui/app.tsx
++++ b/packages/opencode/src/cli/cmd/tui/app.tsx
+@@ -353,14 +353,14 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
+     if (!terminalTitleEnabled() || Flag.OPENCODE_DISABLE_TERMINAL_TITLE) return
+ 
+     if (route.data.type === "home") {
+-      renderer.setTerminalTitle("OpenCode")
++      renderer.setTerminalTitle("Od-cli")
+       return
+     }
+ 
+     if (route.data.type === "session") {
+       const session = sync.session.get(route.data.sessionID)
+       if (!session || SessionApi.isDefaultTitle(session.title)) {
+-        renderer.setTerminalTitle("OpenCode")
++        renderer.setTerminalTitle("Od-cli")
+         return
+       }
+ 
+@@ -873,7 +873,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
+     await DialogAlert.show(
+       dialog,
+       "Update Complete",
+-      `Successfully updated to OpenCode v${result.data.version}. Please restart the application.`,
++      `Successfully updated to Od-cli v${result.data.version}. Please restart the application.`,
+     )
+ 
+     exit()
+diff --git a/packages/opencode/src/cli/cmd/tui/attach.ts b/packages/opencode/src/cli/cmd/tui/attach.ts
+index e892f99..56ca5b3 100644
+--- a/packages/opencode/src/cli/cmd/tui/attach.ts
++++ b/packages/opencode/src/cli/cmd/tui/attach.ts
+@@ -8,7 +8,7 @@ import { existsSync } from "fs"
+ 
+ export const AttachCommand = cmd({
+   command: "attach <url>",
+-  describe: "attach to a running opencode server",
++  describe: "attach to a running Od-cli server",
+   builder: (yargs) =>
+     yargs
+       .positional("url", {
+diff --git a/packages/opencode/src/cli/cmd/tui/component/dialog-go-upsell.tsx b/packages/opencode/src/cli/cmd/tui/component/dialog-go-upsell.tsx
+index 2d200ca..57688dc 100644
+--- a/packages/opencode/src/cli/cmd/tui/component/dialog-go-upsell.tsx
++++ b/packages/opencode/src/cli/cmd/tui/component/dialog-go-upsell.tsx
+@@ -51,7 +51,7 @@ export function DialogGoUpsell(props: DialogGoUpsellProps) {
+       </box>
+       <box gap={1} paddingBottom={1}>
+         <text fg={theme.textMuted}>
+-          Subscribe to OpenCode Go to keep going with reliable access to the best open-source models, starting at
++          Subscribe to Od-cli Go to keep going with reliable access to the best open-source models, starting at
+           $5/month.
+         </text>
+         <box flexDirection="row" gap={1}>
+diff --git a/packages/opencode/src/cli/cmd/tui/component/dialog-provider.tsx b/packages/opencode/src/cli/cmd/tui/component/dialog-provider.tsx
+index c0e39e0..222af40 100644
+--- a/packages/opencode/src/cli/cmd/tui/component/dialog-provider.tsx
++++ b/packages/opencode/src/cli/cmd/tui/component/dialog-provider.tsx
+@@ -270,7 +270,7 @@ function ApiMethod(props: ApiMethodProps) {
+           opencode: (
+             <box gap={1}>
+               <text fg={theme.textMuted}>
+-                OpenCode Zen gives you access to all the best coding models at the cheapest prices with a single API
++                Od-cli Zen gives you access to all the best coding models at the cheapest prices with a single API
+                 key.
+               </text>
+               <text fg={theme.text}>
+@@ -281,11 +281,11 @@ function ApiMethod(props: ApiMethodProps) {
+           "opencode-go": (
+             <box gap={1}>
+               <text fg={theme.textMuted}>
+-                OpenCode Go is a $10 per month subscription that provides reliable access to popular open coding models
++                Od-cli Go is a $10 per month subscription that provides reliable access to popular open coding models
+                 with generous usage limits.
+               </text>
+               <text fg={theme.text}>
+-                Go to <span style={{ fg: theme.primary }}>https://opencode.ai/zen</span> and enable OpenCode Go
++                Go to <span style={{ fg: theme.primary }}>https://opencode.ai/zen</span> and enable Od-cli Go
+               </text>
+             </box>
+           ),
+diff --git a/packages/opencode/src/cli/cmd/tui/feature-plugins/home/tips-view.tsx b/packages/opencode/src/cli/cmd/tui/feature-plugins/home/tips-view.tsx
+index 1a9d907..93eb9ab 100644
+--- a/packages/opencode/src/cli/cmd/tui/feature-plugins/home/tips-view.tsx
++++ b/packages/opencode/src/cli/cmd/tui/feature-plugins/home/tips-view.tsx
+@@ -87,7 +87,7 @@ const TIPS = [
+   "Override any keybind in {highlight}tui.json{/highlight} via the {highlight}keybinds{/highlight} section",
+   "Set any keybind to {highlight}none{/highlight} to disable it completely",
+   "Configure local or remote MCP servers in the {highlight}mcp{/highlight} config section",
+-  "OpenCode auto-handles OAuth for remote MCP servers requiring auth",
++  "Od-cli auto-handles OAuth for remote MCP servers requiring auth",
+   "Add {highlight}.md{/highlight} files to {highlight}.opencode/command/{/highlight} to define reusable custom prompts",
+   "Use {highlight}$ARGUMENTS{/highlight}, {highlight}$1{/highlight}, {highlight}$2{/highlight} in custom commands for dynamic input",
+   "Use backticks in commands to inject shell output (e.g., {highlight}`git status`{/highlight})",
+@@ -96,20 +96,20 @@ const TIPS = [
+   'Use patterns like {highlight}"git *": "allow"{/highlight} for granular bash permissions',
+   'Set {highlight}"rm -rf *": "deny"{/highlight} to block destructive commands',
+   'Configure {highlight}"git push": "ask"{/highlight} to require approval before pushing',
+-  "OpenCode auto-formats files using prettier, gofmt, ruff, and more",
++  "Od-cli auto-formats files using prettier, gofmt, ruff, and more",
+   'Set {highlight}"formatter": false{/highlight} in config to disable all auto-formatting',
+   "Define custom formatter commands with file extensions in config",
+-  "OpenCode uses LSP servers for intelligent code analysis",
++  "Od-cli uses LSP servers for intelligent code analysis",
+   "Create {highlight}.ts{/highlight} files in {highlight}.opencode/tools/{/highlight} to define new LLM tools",
+   "Tool definitions can invoke scripts written in Python, Go, etc",
+   "Add {highlight}.ts{/highlight} files to {highlight}.opencode/plugin/{/highlight} for event hooks",
+   "Use plugins to send OS notifications when sessions complete",
+-  "Create a plugin to prevent OpenCode from reading sensitive files",
++  "Create a plugin to prevent Od-cli from reading sensitive files",
+   "Use {highlight}opencode run{/highlight} for non-interactive scripting",
+   "Use {highlight}opencode --continue{/highlight} to resume the last session",
+   "Use {highlight}opencode run -f file.ts{/highlight} to attach files via CLI",
+   "Use {highlight}--format json{/highlight} for machine-readable output in scripts",
+-  "Run {highlight}opencode serve{/highlight} for headless API access to OpenCode",
++  "Run {highlight}opencode serve{/highlight} for headless API access to Od-cli",
+   "Use {highlight}opencode run --attach{/highlight} to connect to a running server",
+   "Run {highlight}opencode upgrade{/highlight} to update to the latest version",
+   "Run {highlight}opencode auth list{/highlight} to see all configured providers",
+@@ -143,7 +143,7 @@ const TIPS = [
+   "Enable {highlight}scroll_acceleration{/highlight} in {highlight}tui.json{/highlight} for smooth macOS-style scrolling",
+   "Toggle username display in chat via command palette ({highlight}Ctrl+P{/highlight})",
+   "Run {highlight}docker run -it --rm ghcr.io/anomalyco/opencode{/highlight} for containerized use",
+-  "Use {highlight}/connect{/highlight} with OpenCode Zen for curated, tested models",
++  "Use {highlight}/connect{/highlight} with Od-cli Zen for curated, tested models",
+   "Commit your project's {highlight}AGENTS.md{/highlight} file to Git for team sharing",
+   "Use {highlight}/review{/highlight} to review uncommitted changes, branches, or PRs",
+   "Run {highlight}/help{/highlight} or {highlight}Ctrl+X H{/highlight} to show the help dialog",
+diff --git a/packages/opencode/src/cli/cmd/tui/feature-plugins/sidebar/footer.tsx b/packages/opencode/src/cli/cmd/tui/feature-plugins/sidebar/footer.tsx
+index 79a42d2..9de5d0a 100644
+--- a/packages/opencode/src/cli/cmd/tui/feature-plugins/sidebar/footer.tsx
++++ b/packages/opencode/src/cli/cmd/tui/feature-plugins/sidebar/footer.tsx
+@@ -48,7 +48,7 @@ function View(props: { api: TuiPluginApi }) {
+                 ✕
+               </text>
+             </box>
+-            <text fg={theme().textMuted}>OpenCode includes free models so you can start immediately.</text>
++            <text fg={theme().textMuted}>Od-cli includes free models so you can start immediately.</text>
+             <text fg={theme().textMuted}>
+               Connect from 75+ providers to use other models, including Claude, GPT, Gemini etc
+             </text>
+diff --git a/packages/opencode/src/cli/cmd/tui/routes/session/permission.tsx b/packages/opencode/src/cli/cmd/tui/routes/session/permission.tsx
+index e0b5002..77d2bdf 100644
+--- a/packages/opencode/src/cli/cmd/tui/routes/session/permission.tsx
++++ b/packages/opencode/src/cli/cmd/tui/routes/session/permission.tsx
+@@ -160,11 +160,11 @@ export function PermissionPrompt(props: { request: PermissionRequest }) {
+           body={
+             <Switch>
+               <Match when={props.request.always.length === 1 && props.request.always[0] === "*"}>
+-                <TextBody title={"This will allow " + props.request.permission + " until OpenCode is restarted."} />
++                <TextBody title={"This will allow " + props.request.permission + " until Od-cli is restarted."} />
+               </Match>
+               <Match when={true}>
+                 <box paddingLeft={1} gap={1}>
+-                  <text fg={theme.textMuted}>This will allow the following patterns until OpenCode is restarted</text>
++                  <text fg={theme.textMuted}>This will allow the following patterns until Od-cli is restarted</text>
+                   <box>
+                     <For each={props.request.always}>
+                       {(pattern) => (
+@@ -504,7 +504,7 @@ function RejectPrompt(props: { onConfirm: (message: string) => void; onCancel: (
+           <text fg={theme.text}>Reject permission</text>
+         </box>
+         <box paddingLeft={1}>
+-          <text fg={theme.textMuted}>Tell OpenCode what to do differently</text>
++          <text fg={theme.textMuted}>Tell Od-cli what to do differently</text>
+         </box>
+       </box>
+       <box
+diff --git a/packages/opencode/src/cli/cmd/tui/thread.ts b/packages/opencode/src/cli/cmd/tui/thread.ts
+index 0534b14..16d6ffd 100644
+--- a/packages/opencode/src/cli/cmd/tui/thread.ts
++++ b/packages/opencode/src/cli/cmd/tui/thread.ts
+@@ -67,12 +67,12 @@ async function input(value?: string) {
+ 
+ export const TuiThreadCommand = cmd({
+   command: "$0 [project]",
+-  describe: "start opencode tui",
++  describe: "start Od-cli tui",
+   builder: (yargs) =>
+     withNetworkOptions(yargs)
+       .positional("project", {
+         type: "string",
+-        describe: "path to start opencode in",
++        describe: "path to start Od-cli in",
+       })
+       .option("model", {
+         type: "string",
+diff --git a/packages/opencode/src/cli/cmd/uninstall.ts b/packages/opencode/src/cli/cmd/uninstall.ts
+index 31830f0..9061b1d 100644
+--- a/packages/opencode/src/cli/cmd/uninstall.ts
++++ b/packages/opencode/src/cli/cmd/uninstall.ts
+@@ -25,7 +25,7 @@ interface RemovalTargets {
+ 
+ export const UninstallCommand = {
+   command: "uninstall",
+-  describe: "uninstall opencode and remove all related files",
++  describe: "uninstall Od-cli and remove all related files",
+   builder: (yargs: Argv) =>
+     yargs
+       .option("keep-config", {
+@@ -56,7 +56,7 @@ export const UninstallCommand = {
+     UI.empty()
+     UI.println(UI.logo("  "))
+     UI.empty()
+-    prompts.intro("Uninstall OpenCode")
++    prompts.intro("Uninstall Od-cli")
+ 
+     const method = await AppRuntime.runPromise(Installation.Service.use((svc) => svc.method()))
+     prompts.log.info(`Installation method: ${method}`)
+@@ -230,7 +230,7 @@ async function executeUninstall(method: Installation.Method, targets: RemovalTar
+   }
+ 
+   UI.empty()
+-  prompts.log.success("Thank you for using OpenCode!")
++  prompts.log.success("Thank you for using Od-cli!")
+ }
+ 
+ async function getShellConfigFile(): Promise<string | null> {
+diff --git a/packages/opencode/src/cli/cmd/upgrade.ts b/packages/opencode/src/cli/cmd/upgrade.ts
+index 3ffa0f2..4529712 100644
+--- a/packages/opencode/src/cli/cmd/upgrade.ts
++++ b/packages/opencode/src/cli/cmd/upgrade.ts
+@@ -6,7 +6,7 @@ import { Installation } from "../../installation"
+ 
+ export const UpgradeCommand = {
+   command: "upgrade [target]",
+-  describe: "upgrade opencode to the latest or a specific version",
++  describe: "upgrade Od-cli to the latest or a specific version",
+   builder: (yargs: Argv) => {
+     return yargs
+       .positional("target", {
+@@ -28,7 +28,7 @@ export const UpgradeCommand = {
+     const detectedMethod = await AppRuntime.runPromise(Installation.Service.use((svc) => svc.method()))
+     const method = (args.method as Installation.Method) ?? detectedMethod
+     if (method === "unknown") {
+-      prompts.log.error(`opencode is installed to ${process.execPath} and may be managed by a package manager`)
++      prompts.log.error(`Od-cli is installed to ${process.execPath} and may be managed by a package manager`)
+       const install = await prompts.select({
+         message: "Install anyways?",
+         options: [
+@@ -48,7 +48,7 @@ export const UpgradeCommand = {
+       : await AppRuntime.runPromise(Installation.Service.use((svc) => svc.latest()))
+ 
+     if (Installation.VERSION === target) {
+-      prompts.log.warn(`opencode upgrade skipped: ${target} is already installed`)
++      prompts.log.warn(`Od-cli upgrade skipped: ${target} is already installed`)
+       prompts.outro("Done")
+       return
+     }
+diff --git a/packages/opencode/src/cli/error.ts b/packages/opencode/src/cli/error.ts
+index cd67635..7762eb2 100644
+--- a/packages/opencode/src/cli/error.ts
++++ b/packages/opencode/src/cli/error.ts
+@@ -8,7 +8,7 @@ import { UI } from "./ui"
+ 
+ export function FormatError(input: unknown) {
+   if (MCP.Failed.isInstance(input))
+-    return `MCP server "${input.data.name}" failed. Note, opencode does not support MCP authentication yet.`
++    return `MCP server "${input.data.name}" failed. Note, Od-cli does not support MCP authentication yet.`
+   if (input instanceof AccountTransportError || input instanceof AccountServiceError) {
+     return input.message
+   }
+diff --git a/packages/opencode/src/mcp/oauth-callback.ts b/packages/opencode/src/mcp/oauth-callback.ts
+index b5b6a7a..4d6b561 100644
+--- a/packages/opencode/src/mcp/oauth-callback.ts
++++ b/packages/opencode/src/mcp/oauth-callback.ts
+@@ -12,7 +12,7 @@ let currentPath = OAUTH_CALLBACK_PATH
+ const HTML_SUCCESS = `<!DOCTYPE html>
+ <html>
+ <head>
+-  <title>OpenCode - Authorization Successful</title>
++  <title>Od-cli - Authorization Successful</title>
+   <style>
+     body { font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #1a1a2e; color: #eee; }
+     .container { text-align: center; padding: 2rem; }
+@@ -23,7 +23,7 @@ const HTML_SUCCESS = `<!DOCTYPE html>
+ <body>
+   <div class="container">
+     <h1>Authorization Successful</h1>
+-    <p>You can close this window and return to OpenCode.</p>
++    <p>You can close this window and return to Od-cli.</p>
+   </div>
+   <script>setTimeout(() => window.close(), 2000);</script>
+ </body>
+@@ -32,7 +32,7 @@ const HTML_SUCCESS = `<!DOCTYPE html>
+ const HTML_ERROR = (error: string) => `<!DOCTYPE html>
+ <html>
+ <head>
+-  <title>OpenCode - Authorization Failed</title>
++  <title>Od-cli - Authorization Failed</title>
+   <style>
+     body { font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #1a1a2e; color: #eee; }
+     .container { text-align: center; padding: 2rem; }
+diff --git a/packages/opencode/src/mcp/oauth-provider.ts b/packages/opencode/src/mcp/oauth-provider.ts
+index d675fc7..f927ac8 100644
+--- a/packages/opencode/src/mcp/oauth-provider.ts
++++ b/packages/opencode/src/mcp/oauth-provider.ts
+@@ -42,7 +42,7 @@ export class McpOAuthProvider implements OAuthClientProvider {
+   get clientMetadata(): OAuthClientMetadata {
+     return {
+       redirect_uris: [this.redirectUrl],
+-      client_name: "OpenCode",
++      client_name: "Od-cli",
+       client_uri: "https://opencode.ai",
+       grant_types: ["authorization_code", "refresh_token"],
+       response_types: ["code"],
+diff --git a/packages/opencode/src/plugin/codex.ts b/packages/opencode/src/plugin/codex.ts
+index 1e127fa..9f80c33 100644
+--- a/packages/opencode/src/plugin/codex.ts
++++ b/packages/opencode/src/plugin/codex.ts
+@@ -148,7 +148,7 @@ async function refreshAccessToken(refreshToken: string): Promise<TokenResponse>
+ const HTML_SUCCESS = `<!doctype html>
+ <html>
+   <head>
+-    <title>OpenCode - Codex Authorization Successful</title>
++    <title>Od-cli - Codex Authorization Successful</title>
+     <style>
+       body {
+         font-family:
+@@ -179,7 +179,7 @@ const HTML_SUCCESS = `<!doctype html>
+   <body>
+     <div class="container">
+       <h1>Authorization Successful</h1>
+-      <p>You can close this window and return to OpenCode.</p>
++      <p>You can close this window and return to Od-cli.</p>
+     </div>
+     <script>
+       setTimeout(() => window.close(), 2000)
+@@ -190,7 +190,7 @@ const HTML_SUCCESS = `<!doctype html>
+ const HTML_ERROR = (error: string) => `<!doctype html>
+ <html>
+   <head>
+-    <title>OpenCode - Codex Authorization Failed</title>
++    <title>Od-cli - Codex Authorization Failed</title>
+     <style>
+       body {
+         font-family:

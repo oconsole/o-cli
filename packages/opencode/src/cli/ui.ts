@@ -5,12 +5,12 @@ import { logo as glyphs } from "./logo"
 
 export namespace UI {
   const wordmark = [
-    `⠀                                ▄     `,
-    `█▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀▀ █▀▀█ █▀▀█ █▀▀█`,
-    `█  █ █  █ █▀▀▀ █  █ █    █  █ █  █ █▀▀▀`,
-    `▀▀▀▀ █▀▀▀ ▀▀▀▀ ▀  ▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀`,
-  ]
-
+    "   ___      _____ _      ___ ",
+    "  / _ \\    / ____| |    |_ _|",
+    " | | | |  | |    | |     | | ",
+    " | |_| |  | |___ | |___  | | ",
+    "  \\___/    \\_____|_____||___|",
+  ];
   export const CancelledError = NamedError.create("UICancelledError", z.void())
 
   export const Style = {

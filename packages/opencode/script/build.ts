@@ -221,27 +221,6 @@ for (const item of targets) {
     },
   })
 
-  // Re-sign macOS binaries. `bun build --compile` on Apple Silicon emits a
-  // Mach-O with a stale embedded LC_CODE_SIGNATURE that the kernel/Gatekeeper
-  // rejects with SIGKILL (exit 137), which kills the smoke test below and
-  // breaks the Tauri desktop sidecar at runtime. Strip and re-sign so the
-  // binary is launchable. Only runs when we're on darwin building for darwin
-  // — cross-compiled darwin binaries from a Linux host stay unsigned and the
-  // user resigns them on a Mac before distribution.
-  if (process.platform === "darwin" && item.os === "darwin") {
-    const binaryPath = `dist/${name}/bin/opencode`
-    // APPLE_SIGNING_IDENTITY="Developer ID Application: Name (TEAMID)" for
-    // notarizable release builds; "-" (the default) is ad-hoc, fine for
-    // local dev and unsigned distribution.
-    const identity = process.env.APPLE_SIGNING_IDENTITY ?? "-"
-    const label = identity === "-" ? "ad-hoc" : identity
-    console.log(`Re-signing ${binaryPath} (identity: ${label})`)
-    // --remove-signature errors when the binary has no existing signature,
-    // which can happen on the very first build. Tolerate that case.
-    await $`codesign --remove-signature ${binaryPath}`.nothrow().quiet()
-    await $`codesign --force --sign ${identity} --options runtime --timestamp=none ${binaryPath}`
-  }
-
   // Smoke test: only run if binary is for current platform
   if (item.os === process.platform && item.arch === process.arch && !item.abi) {
     const binaryPath = `dist/${name}/bin/opencode`

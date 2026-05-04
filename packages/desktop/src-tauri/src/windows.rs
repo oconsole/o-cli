@@ -53,7 +53,7 @@ impl MainWindow {
             app,
             decorations,
         )
-        .title("O-CLI")
+        .title("OpenCode")
         .disable_drag_drop_handler()
         .zoom_hotkeys_enabled(false)
         .visible(true)
