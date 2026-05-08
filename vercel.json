@@ -1,0 +1,5 @@
+{
+  "installCommand": "curl -fsSL https://bun.sh/install | bash && ~/.bun/bin/bun install",
+  "buildCommand": "~/.bun/bin/bun --cwd packages/app run build",
+  "outputDirectory": "packages/app/dist"
+}
