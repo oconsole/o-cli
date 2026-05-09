@@ -1,0 +1,422 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="ai.oconsole.o_cli"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+7-->INJECTED
+8        android:minSdkVersion="26"
+8-->INJECTED
+9        android:targetSdkVersion="36" />
+9-->INJECTED
+10
+11    <uses-permission android:name="android.permission.CAMERA" />
+11-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:4:5-65
+11-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:4:22-62
+12
+13    <uses-feature
+13-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:5:5-85
+14        android:name="android.hardware.camera"
+14-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:5:19-57
+15        android:required="false" />
+15-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:5:58-82
+16
+17    <uses-permission android:name="android.permission.INTERNET" />
+17-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:6:5-67
+17-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:6:22-64
+18    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+18-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:7:5-77
+18-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:7:22-74
+19    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+19-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:22:5-79
+19-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:22:22-76
+20    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+20-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:24:5-68
+20-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:24:22-65
+21    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+21-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:26:5-82
+21-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:26:22-79
+22
+23    <permission
+23-->[androidx.core:core:1.17.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/82c023913065eeb7018ba67073edda67/transformed/core-1.17.0/AndroidManifest.xml:22:5-24:47
+24        android:name="ai.oconsole.o_cli.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+24-->[androidx.core:core:1.17.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/82c023913065eeb7018ba67073edda67/transformed/core-1.17.0/AndroidManifest.xml:23:9-81
+25        android:protectionLevel="signature" />
+25-->[androidx.core:core:1.17.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/82c023913065eeb7018ba67073edda67/transformed/core-1.17.0/AndroidManifest.xml:24:9-44
+26
+27    <uses-permission android:name="ai.oconsole.o_cli.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+27-->[androidx.core:core:1.17.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/82c023913065eeb7018ba67073edda67/transformed/core-1.17.0/AndroidManifest.xml:26:5-97
+27-->[androidx.core:core:1.17.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/82c023913065eeb7018ba67073edda67/transformed/core-1.17.0/AndroidManifest.xml:26:22-94
+28
+29    <application
+29-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:9:5-42:19
+30        android:allowBackup="true"
+30-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:10:9-35
+31        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+31-->[androidx.core:core:1.17.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/82c023913065eeb7018ba67073edda67/transformed/core-1.17.0/AndroidManifest.xml:28:18-86
+32        android:debuggable="true"
+33        android:extractNativeLibs="false"
+33-->INJECTED
+34        android:icon="@mipmap/ic_launcher"
+34-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:11:9-43
+35        android:label="@string/app_name"
+35-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:12:9-41
+36        android:roundIcon="@mipmap/ic_launcher_round"
+36-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:13:9-54
+37        android:supportsRtl="true"
+37-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:14:9-35
+38        android:testOnly="true"
+39        android:theme="@style/AppTheme"
+39-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:15:9-40
+40        android:usesCleartextTraffic="true" >
+40-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:16:9-44
+41        <activity
+41-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:18:9-31:20
+42            android:name="ai.oconsole.o_cli.MainActivity"
+42-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:20:13-41
+43            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation|density"
+43-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:19:13-148
+44            android:exported="true"
+44-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:24:13-36
+45            android:label="@string/title_activity_main"
+45-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:21:13-56
+46            android:launchMode="singleTask"
+46-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:23:13-44
+47            android:theme="@style/AppTheme.NoActionBarLaunch" >
+47-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:22:13-62
+48            <intent-filter>
+48-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:26:13-29:29
+49                <action android:name="android.intent.action.MAIN" />
+49-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:27:17-69
+49-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:27:25-66
+50
+51                <category android:name="android.intent.category.LAUNCHER" />
+51-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:28:17-77
+51-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:28:27-74
+52            </intent-filter>
+53        </activity>
+54
+55        <provider
+55-->INJECTED
+56            android:name="androidx.core.content.FileProvider"
+56-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:34:13-62
+57            android:authorities="ai.oconsole.o_cli.fileprovider"
+57-->INJECTED
+58            android:exported="false"
+58-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:36:13-37
+59            android:grantUriPermissions="true" >
+59-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:37:13-47
+60            <meta-data
+60-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:38:13-40:64
+61                android:name="android.support.FILE_PROVIDER_PATHS"
+61-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:39:17-67
+62                android:resource="@xml/file_paths" />
+62-->/Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/packages/app/android/app/src/main/AndroidManifest.xml:40:17-51
+63        </provider>
+64
+65        <service
+65-->[:capacitor-push-notifications] /Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/node_modules/.bun/@capacitor+push-notifications@8.0.4+47a7ee9109a6b001/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-14:19
+66            android:name="com.capacitorjs.plugins.pushnotifications.MessagingService"
+66-->[:capacitor-push-notifications] /Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/node_modules/.bun/@capacitor+push-notifications@8.0.4+47a7ee9109a6b001/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-86
+67            android:exported="false" >
+67-->[:capacitor-push-notifications] /Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/node_modules/.bun/@capacitor+push-notifications@8.0.4+47a7ee9109a6b001/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:13-37
+68            <intent-filter>
+68-->[:capacitor-push-notifications] /Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/node_modules/.bun/@capacitor+push-notifications@8.0.4+47a7ee9109a6b001/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:13-13:29
+69                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+69-->[:capacitor-push-notifications] /Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/node_modules/.bun/@capacitor+push-notifications@8.0.4+47a7ee9109a6b001/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:12:17-78
+69-->[:capacitor-push-notifications] /Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/node_modules/.bun/@capacitor+push-notifications@8.0.4+47a7ee9109a6b001/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:12:25-75
+70            </intent-filter>
+71        </service>
+72        <!--
+73        Service for holding metadata. Cannot be instantiated.
+74        Metadata will be merged from other manifests.
+75        -->
+76        <service
+76-->[androidx.camera:camera-core:1.5.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/0c7d59e662c283b34f94fed4d05b5f4d/transformed/camera-core-1.5.1/AndroidManifest.xml:29:9-33:78
+77            android:name="androidx.camera.core.impl.MetadataHolderService"
+77-->[androidx.camera:camera-core:1.5.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/0c7d59e662c283b34f94fed4d05b5f4d/transformed/camera-core-1.5.1/AndroidManifest.xml:30:13-75
+78            android:enabled="false"
+78-->[androidx.camera:camera-core:1.5.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/0c7d59e662c283b34f94fed4d05b5f4d/transformed/camera-core-1.5.1/AndroidManifest.xml:31:13-36
+79            android:exported="false" >
+79-->[androidx.camera:camera-core:1.5.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/0c7d59e662c283b34f94fed4d05b5f4d/transformed/camera-core-1.5.1/AndroidManifest.xml:32:13-37
+80            <meta-data
+80-->[androidx.camera:camera-camera2:1.5.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/e7824b0d09c2492f7543242cec5c953d/transformed/camera-camera2-1.5.1/AndroidManifest.xml:30:13-32:89
+81                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+81-->[androidx.camera:camera-camera2:1.5.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/e7824b0d09c2492f7543242cec5c953d/transformed/camera-camera2-1.5.1/AndroidManifest.xml:31:17-103
+82                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+82-->[androidx.camera:camera-camera2:1.5.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/e7824b0d09c2492f7543242cec5c953d/transformed/camera-camera2-1.5.1/AndroidManifest.xml:32:17-86
+83        </service>
+84        <service
+84-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/0d7ef3c7a216d3bfb2d59d3667115ecb/transformed/play-services-mlkit-barcode-scanning-18.3.1/AndroidManifest.xml:9:9-15:19
+85            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+85-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/0d7ef3c7a216d3bfb2d59d3667115ecb/transformed/play-services-mlkit-barcode-scanning-18.3.1/AndroidManifest.xml:10:13-91
+86            android:directBootAware="true"
+86-->[com.google.mlkit:common:18.11.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/ecf3caaa127cbcd3527adfb37689a282/transformed/common-18.11.0/AndroidManifest.xml:17:13-43
+87            android:exported="false" >
+87-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/0d7ef3c7a216d3bfb2d59d3667115ecb/transformed/play-services-mlkit-barcode-scanning-18.3.1/AndroidManifest.xml:11:13-37
+88            <meta-data
+88-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/0d7ef3c7a216d3bfb2d59d3667115ecb/transformed/play-services-mlkit-barcode-scanning-18.3.1/AndroidManifest.xml:12:13-14:85
+89                android:name="com.google.firebase.components:com.google.mlkit.vision.barcode.internal.BarcodeRegistrar"
+89-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/0d7ef3c7a216d3bfb2d59d3667115ecb/transformed/play-services-mlkit-barcode-scanning-18.3.1/AndroidManifest.xml:13:17-120
+90                android:value="com.google.firebase.components.ComponentRegistrar" />
+90-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/0d7ef3c7a216d3bfb2d59d3667115ecb/transformed/play-services-mlkit-barcode-scanning-18.3.1/AndroidManifest.xml:14:17-82
+91            <meta-data
+91-->[com.google.mlkit:vision-common:17.3.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/2fbd6a6ecd4a60f1aed5eac6e781c5bf/transformed/vision-common-17.3.0/AndroidManifest.xml:12:13-14:85
+92                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+92-->[com.google.mlkit:vision-common:17.3.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/2fbd6a6ecd4a60f1aed5eac6e781c5bf/transformed/vision-common-17.3.0/AndroidManifest.xml:13:17-124
+93                android:value="com.google.firebase.components.ComponentRegistrar" />
+93-->[com.google.mlkit:vision-common:17.3.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/2fbd6a6ecd4a60f1aed5eac6e781c5bf/transformed/vision-common-17.3.0/AndroidManifest.xml:14:17-82
+94            <meta-data
+94-->[com.google.mlkit:common:18.11.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/ecf3caaa127cbcd3527adfb37689a282/transformed/common-18.11.0/AndroidManifest.xml:20:13-22:85
+95                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+95-->[com.google.mlkit:common:18.11.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/ecf3caaa127cbcd3527adfb37689a282/transformed/common-18.11.0/AndroidManifest.xml:21:17-120
+96                android:value="com.google.firebase.components.ComponentRegistrar" />
+96-->[com.google.mlkit:common:18.11.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/ecf3caaa127cbcd3527adfb37689a282/transformed/common-18.11.0/AndroidManifest.xml:22:17-82
+97        </service>
+98
+99        <provider
+99-->[com.google.mlkit:common:18.11.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/ecf3caaa127cbcd3527adfb37689a282/transformed/common-18.11.0/AndroidManifest.xml:9:9-13:38
+100            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+100-->[com.google.mlkit:common:18.11.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/ecf3caaa127cbcd3527adfb37689a282/transformed/common-18.11.0/AndroidManifest.xml:10:13-78
+101            android:authorities="ai.oconsole.o_cli.mlkitinitprovider"
+101-->[com.google.mlkit:common:18.11.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/ecf3caaa127cbcd3527adfb37689a282/transformed/common-18.11.0/AndroidManifest.xml:11:13-69
+102            android:exported="false"
+102-->[com.google.mlkit:common:18.11.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/ecf3caaa127cbcd3527adfb37689a282/transformed/common-18.11.0/AndroidManifest.xml:12:13-37
+103            android:initOrder="99" />
+103-->[com.google.mlkit:common:18.11.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/ecf3caaa127cbcd3527adfb37689a282/transformed/common-18.11.0/AndroidManifest.xml:13:13-35
+104
+105        <receiver
+105-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:29:9-40:20
+106            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+106-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:30:13-78
+107            android:exported="true"
+107-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:31:13-36
+108            android:permission="com.google.android.c2dm.permission.SEND" >
+108-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:32:13-73
+109            <intent-filter>
+109-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:33:13-35:29
+110                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+110-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:34:17-81
+110-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:34:25-78
+111            </intent-filter>
+112
+113            <meta-data
+113-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:37:13-39:40
+114                android:name="com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED"
+114-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:38:17-92
+115                android:value="true" />
+115-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:39:17-37
+116        </receiver>
+117        <!--
+118             FirebaseMessagingService performs security checks at runtime,
+119             but set to not exported to explicitly avoid allowing another app to call it.
+120        -->
+121        <service
+121-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:46:9-53:19
+122            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+122-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:47:13-82
+123            android:directBootAware="true"
+123-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:48:13-43
+124            android:exported="false" >
+124-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:49:13-37
+125            <intent-filter android:priority="-500" >
+125-->[:capacitor-push-notifications] /Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/node_modules/.bun/@capacitor+push-notifications@8.0.4+47a7ee9109a6b001/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:13-13:29
+126                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+126-->[:capacitor-push-notifications] /Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/node_modules/.bun/@capacitor+push-notifications@8.0.4+47a7ee9109a6b001/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:12:17-78
+126-->[:capacitor-push-notifications] /Users/zaidzahid/Documents/Almaz-Work/odoo_PR/o-cli/node_modules/.bun/@capacitor+push-notifications@8.0.4+47a7ee9109a6b001/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:12:25-75
+127            </intent-filter>
+128        </service>
+129        <service
+129-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:54:9-63:19
+130            android:name="com.google.firebase.components.ComponentDiscoveryService"
+130-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:55:13-84
+131            android:directBootAware="true"
+131-->[com.google.firebase:firebase-common:22.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/7e69084732c8d07fd2e71d1302ee41fe/transformed/firebase-common-22.0.1/AndroidManifest.xml:32:13-43
+132            android:exported="false" >
+132-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:56:13-37
+133            <meta-data
+133-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:57:13-59:85
+134                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar"
+134-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:58:17-122
+135                android:value="com.google.firebase.components.ComponentRegistrar" />
+135-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:59:17-82
+136            <meta-data
+136-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:60:13-62:85
+137                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+137-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:61:17-119
+138                android:value="com.google.firebase.components.ComponentRegistrar" />
+138-->[com.google.firebase:firebase-messaging:25.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/29eec2f447ea5d939337f415e3bef485/transformed/firebase-messaging-25.0.1/AndroidManifest.xml:62:17-82
+139            <meta-data
+139-->[com.google.firebase:firebase-installations:18.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3f530da7ee584fe183216dd1f2ca5296/transformed/firebase-installations-18.0.0/AndroidManifest.xml:15:13-17:85
+140                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+140-->[com.google.firebase:firebase-installations:18.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3f530da7ee584fe183216dd1f2ca5296/transformed/firebase-installations-18.0.0/AndroidManifest.xml:16:17-130
+141                android:value="com.google.firebase.components.ComponentRegistrar" />
+141-->[com.google.firebase:firebase-installations:18.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3f530da7ee584fe183216dd1f2ca5296/transformed/firebase-installations-18.0.0/AndroidManifest.xml:17:17-82
+142            <meta-data
+142-->[com.google.firebase:firebase-installations:18.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3f530da7ee584fe183216dd1f2ca5296/transformed/firebase-installations-18.0.0/AndroidManifest.xml:18:13-20:85
+143                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+143-->[com.google.firebase:firebase-installations:18.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3f530da7ee584fe183216dd1f2ca5296/transformed/firebase-installations-18.0.0/AndroidManifest.xml:19:17-127
+144                android:value="com.google.firebase.components.ComponentRegistrar" />
+144-->[com.google.firebase:firebase-installations:18.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3f530da7ee584fe183216dd1f2ca5296/transformed/firebase-installations-18.0.0/AndroidManifest.xml:20:17-82
+145            <meta-data
+145-->[com.google.firebase:firebase-common:22.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/7e69084732c8d07fd2e71d1302ee41fe/transformed/firebase-common-22.0.1/AndroidManifest.xml:35:13-37:85
+146                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+146-->[com.google.firebase:firebase-common:22.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/7e69084732c8d07fd2e71d1302ee41fe/transformed/firebase-common-22.0.1/AndroidManifest.xml:36:17-109
+147                android:value="com.google.firebase.components.ComponentRegistrar" />
+147-->[com.google.firebase:firebase-common:22.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/7e69084732c8d07fd2e71d1302ee41fe/transformed/firebase-common-22.0.1/AndroidManifest.xml:37:17-82
+148            <meta-data
+148-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/4efbad5006c0ab7ccbeab308cdaa5c7d/transformed/firebase-datatransport-18.2.0/AndroidManifest.xml:25:13-27:85
+149                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+149-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/4efbad5006c0ab7ccbeab308cdaa5c7d/transformed/firebase-datatransport-18.2.0/AndroidManifest.xml:26:17-115
+150                android:value="com.google.firebase.components.ComponentRegistrar" />
+150-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/4efbad5006c0ab7ccbeab308cdaa5c7d/transformed/firebase-datatransport-18.2.0/AndroidManifest.xml:27:17-82
+151        </service>
+152
+153        <provider
+153-->[com.google.firebase:firebase-common:22.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/7e69084732c8d07fd2e71d1302ee41fe/transformed/firebase-common-22.0.1/AndroidManifest.xml:23:9-28:39
+154            android:name="com.google.firebase.provider.FirebaseInitProvider"
+154-->[com.google.firebase:firebase-common:22.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/7e69084732c8d07fd2e71d1302ee41fe/transformed/firebase-common-22.0.1/AndroidManifest.xml:24:13-77
+155            android:authorities="ai.oconsole.o_cli.firebaseinitprovider"
+155-->[com.google.firebase:firebase-common:22.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/7e69084732c8d07fd2e71d1302ee41fe/transformed/firebase-common-22.0.1/AndroidManifest.xml:25:13-72
+156            android:directBootAware="true"
+156-->[com.google.firebase:firebase-common:22.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/7e69084732c8d07fd2e71d1302ee41fe/transformed/firebase-common-22.0.1/AndroidManifest.xml:26:13-43
+157            android:exported="false"
+157-->[com.google.firebase:firebase-common:22.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/7e69084732c8d07fd2e71d1302ee41fe/transformed/firebase-common-22.0.1/AndroidManifest.xml:27:13-37
+158            android:initOrder="100" />
+158-->[com.google.firebase:firebase-common:22.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/7e69084732c8d07fd2e71d1302ee41fe/transformed/firebase-common-22.0.1/AndroidManifest.xml:28:13-36
+159
+160        <activity
+160-->[com.google.android.gms:play-services-base:18.5.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/226db652213d40735b4e66a7763b8abe/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:9-173
+161            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+161-->[com.google.android.gms:play-services-base:18.5.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/226db652213d40735b4e66a7763b8abe/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:19-85
+162            android:exported="false"
+162-->[com.google.android.gms:play-services-base:18.5.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/226db652213d40735b4e66a7763b8abe/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:146-170
+163            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+163-->[com.google.android.gms:play-services-base:18.5.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/226db652213d40735b4e66a7763b8abe/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:86-145
+164
+165        <provider
+165-->[androidx.emoji2:emoji2:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3425e432f82fa179423c9ab94f8bb6d3/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
+166            android:name="androidx.startup.InitializationProvider"
+166-->[androidx.emoji2:emoji2:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3425e432f82fa179423c9ab94f8bb6d3/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
+167            android:authorities="ai.oconsole.o_cli.androidx-startup"
+167-->[androidx.emoji2:emoji2:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3425e432f82fa179423c9ab94f8bb6d3/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
+168            android:exported="false" >
+168-->[androidx.emoji2:emoji2:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3425e432f82fa179423c9ab94f8bb6d3/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
+169            <meta-data
+169-->[androidx.emoji2:emoji2:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3425e432f82fa179423c9ab94f8bb6d3/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
+170                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+170-->[androidx.emoji2:emoji2:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3425e432f82fa179423c9ab94f8bb6d3/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
+171                android:value="androidx.startup" />
+171-->[androidx.emoji2:emoji2:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/3425e432f82fa179423c9ab94f8bb6d3/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
+172            <meta-data
+172-->[androidx.lifecycle:lifecycle-process:2.9.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/74bc8ca946f86d5acd6088dc6f69a56f/transformed/lifecycle-process-2.9.0/AndroidManifest.xml:29:13-31:52
+173                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+173-->[androidx.lifecycle:lifecycle-process:2.9.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/74bc8ca946f86d5acd6088dc6f69a56f/transformed/lifecycle-process-2.9.0/AndroidManifest.xml:30:17-78
+174                android:value="androidx.startup" />
+174-->[androidx.lifecycle:lifecycle-process:2.9.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/74bc8ca946f86d5acd6088dc6f69a56f/transformed/lifecycle-process-2.9.0/AndroidManifest.xml:31:17-49
+175            <meta-data
+175-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+176                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+176-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+177                android:value="androidx.startup" />
+177-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+178        </provider>
+179
+180        <uses-library
+180-->[androidx.window:window:1.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/a0fd7cc143c8c5660739abfb36b8bb10/transformed/window-1.0.0/AndroidManifest.xml:25:9-27:40
+181            android:name="androidx.window.extensions"
+181-->[androidx.window:window:1.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/a0fd7cc143c8c5660739abfb36b8bb10/transformed/window-1.0.0/AndroidManifest.xml:26:13-54
+182            android:required="false" />
+182-->[androidx.window:window:1.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/a0fd7cc143c8c5660739abfb36b8bb10/transformed/window-1.0.0/AndroidManifest.xml:27:13-37
+183        <uses-library
+183-->[androidx.window:window:1.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/a0fd7cc143c8c5660739abfb36b8bb10/transformed/window-1.0.0/AndroidManifest.xml:28:9-30:40
+184            android:name="androidx.window.sidecar"
+184-->[androidx.window:window:1.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/a0fd7cc143c8c5660739abfb36b8bb10/transformed/window-1.0.0/AndroidManifest.xml:29:13-51
+185            android:required="false" />
+185-->[androidx.window:window:1.0.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/a0fd7cc143c8c5660739abfb36b8bb10/transformed/window-1.0.0/AndroidManifest.xml:30:13-37
+186
+187        <meta-data
+187-->[com.google.android.gms:play-services-basement:18.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/1e0726010a06c8146496d02b0ce20200/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:9-122
+188            android:name="com.google.android.gms.version"
+188-->[com.google.android.gms:play-services-basement:18.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/1e0726010a06c8146496d02b0ce20200/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:20-65
+189            android:value="@integer/google_play_services_version" />
+189-->[com.google.android.gms:play-services-basement:18.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/1e0726010a06c8146496d02b0ce20200/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:66-119
+190
+191        <receiver
+191-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+192            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+192-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+193            android:directBootAware="false"
+193-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+194            android:enabled="true"
+194-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+195            android:exported="true"
+195-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+196            android:permission="android.permission.DUMP" >
+196-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+197            <intent-filter>
+197-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+198                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+198-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+198-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+199            </intent-filter>
+200            <intent-filter>
+200-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+201                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+201-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+201-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+202            </intent-filter>
+203            <intent-filter>
+203-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+204                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+204-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+204-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+205            </intent-filter>
+206            <intent-filter>
+206-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+207                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+207-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+207-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/77fd3fe0c75997985387be20d2aeaaa1/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+208            </intent-filter>
+209        </receiver>
+210
+211        <service
+211-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/c7befec97c2048229cff05739e7dea71/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:28:9-34:19
+212            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+212-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/c7befec97c2048229cff05739e7dea71/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:29:13-103
+213            android:exported="false" >
+213-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/c7befec97c2048229cff05739e7dea71/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:30:13-37
+214            <meta-data
+214-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/c7befec97c2048229cff05739e7dea71/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:31:13-33:39
+215                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+215-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/c7befec97c2048229cff05739e7dea71/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:32:17-94
+216                android:value="cct" />
+216-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/c7befec97c2048229cff05739e7dea71/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:33:17-36
+217        </service>
+218        <service
+218-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/98c6e20732f0a0f273743d76f219fe73/transformed/transport-runtime-3.1.9/AndroidManifest.xml:26:9-30:19
+219            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+219-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/98c6e20732f0a0f273743d76f219fe73/transformed/transport-runtime-3.1.9/AndroidManifest.xml:27:13-117
+220            android:exported="false"
+220-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/98c6e20732f0a0f273743d76f219fe73/transformed/transport-runtime-3.1.9/AndroidManifest.xml:28:13-37
+221            android:permission="android.permission.BIND_JOB_SERVICE" >
+221-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/98c6e20732f0a0f273743d76f219fe73/transformed/transport-runtime-3.1.9/AndroidManifest.xml:29:13-69
+222        </service>
+223
+224        <receiver
+224-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/98c6e20732f0a0f273743d76f219fe73/transformed/transport-runtime-3.1.9/AndroidManifest.xml:32:9-34:40
+225            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+225-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/98c6e20732f0a0f273743d76f219fe73/transformed/transport-runtime-3.1.9/AndroidManifest.xml:33:13-132
+226            android:exported="false" />
+226-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/98c6e20732f0a0f273743d76f219fe73/transformed/transport-runtime-3.1.9/AndroidManifest.xml:34:13-37
+227
+228        <activity
+228-->[io.ionic.libs:ionbarcode-android:2.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/a220c3a7a37f1312adeb6d008dcf6ab2/transformed/ionbarcode-android-2.0.1/AndroidManifest.xml:10:9-12:40
+229            android:name="com.outsystems.plugins.barcode.view.OSBARCScannerActivity"
+229-->[io.ionic.libs:ionbarcode-android:2.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/a220c3a7a37f1312adeb6d008dcf6ab2/transformed/ionbarcode-android-2.0.1/AndroidManifest.xml:11:13-85
+230            android:exported="false" />
+230-->[io.ionic.libs:ionbarcode-android:2.0.1] /Users/zaidzahid/.gradle/caches/9.4.1/transforms/a220c3a7a37f1312adeb6d008dcf6ab2/transformed/ionbarcode-android-2.0.1/AndroidManifest.xml:12:13-37
+231    </application>
+232
+233</manifest>

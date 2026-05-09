@@ -1,0 +1,15 @@
+{
+	"appId": "ai.oconsole.o_cli",
+	"appName": "OdooCLI",
+	"webDir": "dist",
+	"server": {
+		"allowNavigation": [
+			"35.154.153.108"
+		]
+	},
+	"packageClassList": [
+		"CapacitorBarcodeScannerPlugin",
+		"PreferencesPlugin",
+		"PushNotificationsPlugin"
+	]
+}
