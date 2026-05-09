@@ -148,6 +148,92 @@ Want to disable the Odoo agent and use OdooCLI as plain opencode? Press `Tab` to
 | `.opencode/agent/*.md` | Custom agents (project-scoped) |
 | `vendor/odoo-skills/*/SKILL.md` | The bundled Odoo skills (submodule — track upstream) |
 
+## Running the frontend locally (web UI)
+
+> ### ⚠️ Do not use `bun run o-cli web` for frontend development
+>
+> Running `bun run o-cli web` routes all requests through opencode's built-in reverse proxy. This proxy does not correctly serve static assets — meaning any image, font, or file sitting in `packages/app/public/` will fail to load in the browser. The UI will appear broken or incomplete.
+>
+> **This is not a bug you can work around by tweaking paths.** The proxy is a structural limitation of the bundled web mode: it is designed for serving the agent interface, not for running the frontend in development. The `packages/app` source is never rebuilt when you use this command, so changes to UI code won't appear either.
+>
+> **Always run the Vite dev server directly** (steps below). It serves assets correctly, picks up code changes instantly via hot reload, and connects to the opencode server over a plain HTTP connection you control.
+
+### Step 1 — Start the opencode server
+
+The frontend needs a running opencode server to connect to. Start it on localhost with a username and password:
+
+```bash
+bun run o-cli -- web --host 127.0.0.1 --port 4096 --username admin --password yourpassword
+```
+
+This starts the opencode HTTP server at `http://127.0.0.1:4096`. Keep this terminal open.
+
+### Step 2 — Configure the frontend's `.env`
+
+In `packages/app/`, create a `.env` file (it won't exist by default):
+
+```bash
+# packages/app/.env
+VITE_API_URL=http://127.0.0.1:4096
+VITE_API_USERNAME=admin
+VITE_API_PASSWORD=yourpassword
+```
+
+Replace the values to match whatever `--username`, `--password`, and `--port` you used in Step 1. The `VITE_` prefix is required — Vite only exposes variables with that prefix to the browser bundle.
+
+### Step 3 — Wire the `.env` values into the app entry point
+
+In `packages/app/src/entry.tsx`, replace the hardcoded server URL with environment-variable lookups:
+
+```ts
+const getCurrentUrl = () => {
+  return import.meta.env.VITE_API_URL || "http://127.0.0.1:4096"
+}
+
+if (root instanceof HTMLElement) {
+  const server: ServerConnection.Http = {
+    type: "http",
+    http: {
+      url: getCurrentUrl(),
+      username: import.meta.env.VITE_API_USERNAME,
+      password: import.meta.env.VITE_API_PASSWORD,
+    },
+  }
+  // ... rest of your mount logic
+}
+```
+
+The fallback URL in `getCurrentUrl()` is just a safety net for local development — in practice the `.env` value takes precedence.
+
+### Step 4 — Start the Vite dev server
+
+```bash
+cd packages/app
+bun install       # if you haven't already
+bun run dev
+```
+
+Vite will print a local URL — open it in your browser. The frontend loads with hot reload, correct asset paths, and connects to the opencode server running in Step 1.
+
+> ### ⚠️ `bun install` failing? Disable IPv6
+>
+> On many Linux systems and some macOS setups, `bun install` hangs or fails with network errors because Bun attempts to resolve package registry hostnames over IPv6, which is either broken or unroutable on the host. This is one of the most common install failures and has nothing to do with your code or Bun version.
+>
+> **Fix: disable IPv6 before running `bun install`.**
+>
+> On Linux:
+> ```bash
+> sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+> sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+> ```
+> Then re-run `bun install`. To make it permanent across reboots, add both lines to `/etc/sysctl.conf`.
+>
+> On macOS, go to **System Settings → Network → your active interface → Details → TCP/IP** and set "Configure IPv6" to **Link-local only**, then retry.
+>
+> Once packages are installed you can re-enable IPv6 — it only needs to be off during the install step.
+
+> **Credentials in `.env`** are only used during local development. The `.env` file is gitignored and never committed. Do not hardcode credentials in source files.
+
 ## About the Python MCP server
 
 > "OdooCLI is a TypeScript fork of opencode, but the Odoo MCP server is Python — is that a problem?"
